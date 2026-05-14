@@ -1,0 +1,429 @@
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* カードの文字に合わせた、少しレトロで読みやすいフォント */
+    font-family: 'Zen Kaku Gothic New', "Times New Roman", serif;
+    background-color: #fffafa; /* ほんのりピンクがかった白 */
+    color: #5d4037; /* カードの文字色（濃い茶色） */
+    line-height: 1.6;
+}
+
+header{
+    background-image:url(image/website01.jpg);
+    padding: 100px 20px;
+    background-size: cover;
+     background-position: center;
+    text-align:center;
+}
+
+header h1 {
+    font-size: 80px;
+    color: #fff; /* 白文字にする */
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3); /* 文字に影をつけて読みやすく */
+    font-family: "Playfair Display", serif;
+    margin-bottom: 30px;
+}
+
+section{
+background-color: #fdfdfd;
+padding: 60px 32px;
+}
+
+h2 {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 24px;
+    border-bottom: 2px solid #333;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+/* 4. 本文の調整 */
+p {
+    max-width: 800px;
+    margin: 0 auto; /* 中央に寄せる */
+    padding: 20px 0;
+}
+
+
+/*検索ボタン*/
+/* 最初の検索ボタン */
+#search-toggle-btn.search-btn {
+    display: inline-block;
+    padding: 12px 35px;
+    background-color: rgba(255, 255, 255, 0.9); /* 半透明の白 */
+    color: #5d4037;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+#search-toggle-btn.search-btn:hover {
+    background-color: #ffcad1; /* 桜色 */
+    transform: translateY(-3px); /* 少し浮く */
+}
+
+/* 6. 検索オーバーレイ（隠れている画面） */
+/* --- 検索オーバーレイ（ジャンル選択画面） --- */
+.search-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 250, 250, 0.98); /* 白に近い桜色 */
+    z-index: 2000;
+    overflow-y: auto;
+    padding: 60px 20px;
+}
+
+.search-overlay.active {
+    display: block;
+}
+
+
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 40px;
+    background: none;
+    border: none;
+    color: #5d4037;
+    cursor: pointer;
+}
+.search-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.search-content h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #ffcad1;
+    display: inline-block;
+}
+/* ジャンルの入れ物 */
+.genre-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+/* ジャンルボタンのデザイン */
+.genre-item {
+    background-color: #ffe4e1; /* 薄いピンク */
+    color: #5d4037;
+    border: 1px solid #ffcad1;
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+   
+/* マウスを乗せた時の色（少しだけ濃いピンクにする） */
+.genre-item:hover {
+    background-color: #ffcad1;
+    transform: scale(1.05);
+}
+/* ホームに戻るボタン（ここを桜色に！） */
+#result-title button {
+    font-size: 14px;
+    margin-left: 15px;
+    padding: 6px 15px;
+    background-color: #ffcad1; /* 桜色 */
+    color: #5d4037;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: 0.3s;
+}
+
+#result-title button:hover {
+    background-color: #ffe4e1; /* 薄いピンク */
+    transform: translateX(-3px); /* 少し左に動く */
+}
+
+#result-title {
+    font-size: 24px;
+    color: #5d4037;
+    text-align: center;
+    margin: 40px 0;
+    font-weight: bold;
+}
+
+/* キーワード検索ボックスの調整 */
+.search-box {
+    margin-top: 40px;
+    padding-bottom: 50px;
+}
+
+.search-box input {
+    padding: 12px;
+    width: 60%;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+}
+
+.search-box button {
+    padding: 12px 20px;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.filter-group h3 {
+    font-size: 18px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    color: #5d4037;
+}
+
+/* ボタンを並べる入れ物 */
+.filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* デザインはジャンルボタン(genre-item)とほぼ同じ */
+.filter-item {
+    background-color: #ffe4e1;
+    color: #5d4037;
+    border: 1px solid #ffcad1;
+    border-radius: 20px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    transition: 0.3s;
+}
+
+.filter-item:hover {
+    background-color: #ffcad1;
+    transform: scale(1.05);
+}
+/* --- カード表示エリア（ここを縦長にする！） --- */
+.card-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px; /* カード同士の間隔を広く */
+    padding: 20px;
+    max-width: 1200px; /* 横に広がりすぎないように */
+    margin: 0 auto;
+}
+
+/* 本のカード自体 */
+.book-card {
+    /* 1行に2枚並べる（画面幅が狭い時は1枚になる） */
+    width: calc(50% - 15px); 
+    min-width: 320px; /* これ以上小さくならないように */
+    max-width: 450px; /* これ以上大きくならないように */
+    
+    background-color: #fff;
+    border: 1px solid #ffcad1;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(255, 202, 209, 0.3); /* 桜色の影 */
+    transition: 0.3s;
+}
+.book-card:hover {
+    transform: translateY(-5px); /* 少し浮く */
+    box-shadow: 0 8px 25px rgba(255, 202, 209, 0.5);
+}
+.book-card img {
+    width: 100%;
+    /* 紹介カードの縦横比（3:4）に合わせる */
+    aspect-ratio: 3 / 4; 
+    object-fit: contain; /* 画像全体をきれいに収める */
+    background-color: #ffe4e1; /* 画像がない時の背景色 */
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+.book-card h3 {
+    font-size: 20px;
+    margin: 10px 0 20px;
+    color: #5d4037;
+    font-family: inherit;
+}
+/* ★ここが大事：最初はネタバレを隠しておく */
+.spoiler-content {
+    display: none;
+    margin-top: 15px;
+    font-size: 15px;
+    color: #5d4037;
+    background-color: #fffafa; /* ほんのりピンク */
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 5px solid #ffcad1; /* 左側に桜色の線 */
+    text-align: left;
+}
+
+/* ネタバレが表示されている時用の設定 */
+.spoiler-content.show {
+    display: block;
+}
+
+
+/* ネタバレボタン */
+.spoiler-btn {
+    padding: 8px 20px;
+    font-size: 14px;
+    background-color: #fff; /* 白背景 */
+    color: #5d4037;
+    border: 2px solid #ffcad1; /* 桜色の枠 */
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: 0.3s;
+}
+
+.spoiler-btn:hover {
+    background-color: #ffe4e1; /* 薄いピンク */
+}
+
+/* 全表示ボタンのエリア */
+.view-all-container {
+    text-align: center;
+    margin: 40px 0;
+}
+
+/* 全表示ボタン自体のデザイン */
+.view-all-btn {
+    padding: 12px 40px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.view-all-btn:hover {
+    background-color: rgb(195, 98, 69);
+}
+/* 拡大画面の背景 */
+.image-modal {
+    display: none; /* 最初は隠す */
+    position: fixed;
+    z-index: 3000; /* 検索画面(2000)よりも上にくるように大きな数字にする */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center; /* 真ん中に寄せる */
+    align-items: center;    /* 真ん中に寄せる */
+}
+
+/* 拡大された画像 */
+#modal-img {
+    max-width: 90%;
+    max-height: 90%;
+    border: 3px solid #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    /* ふわっと出るアニメーション */
+    animation: zoom 0.3s;
+}
+
+@keyframes zoom {
+    from {transform: scale(0.5); opacity: 0;}
+    to {transform: scale(1); opacity: 1;}
+}
+
+/* 閉じるボタン */
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.book-description {
+    font-size: 0.9em;
+    color: #555;
+    margin: 10px 0;
+    line-height: 1.5;
+    text-align: left;
+}
+/* タグボタン全体の並び方 */
+.keyword-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* タグボタン（今の気分で探す）の見た目を他のボタンと統一 */
+.keyword-item {
+    background-color: #ffe4e6; /* ジャンルボタンに近い薄いピンク */
+    border: none;              /* 枠線を消してスッキリさせる */
+    color: #4a4a4a;           /* 文字色は読みやすい濃いグレー */
+    padding: 8px 18px;
+    border-radius: 20px;       /* 丸みはそのまま */
+    margin: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+/* マウスを乗せた時の色（少しだけ濃くする） */
+.keyword-item:hover {
+    background-color: #ffccd1; 
+    transform: translateY(-2px);
+}
+.floating-post-btn {
+    position: fixed;     /* 画面の決まった場所に固定 */
+    bottom: 30px;        /* 下から30px */
+    right: 30px;         /* 右から30px */
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); /* 綺麗なグラデーション */
+    color: white;
+    padding: 15px 25px;
+    border-radius: 50px; /* 丸みのあるカプセル型 */
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    box-shadow: 0 4px 15px rgba(255, 154, 158, 0.4); /* ふわっとした影 */
+    z-index: 1000;       /* 他の要素より一番上に表示 */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    animation: float 3s ease-in-out infinite; /* ふわふわ動くアニメーション */
+}
+
+/* マウスを乗せた時 */
+.floating-post-btn:hover {
+    transform: scale(1.1) translateY(-5px);
+    box-shadow: 0 6px 20px rgba(255, 154, 158, 0.6);
+}
+
+/* ふわふわ浮くアニメーションの設定 */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>yom.-中高生向けの本の紹介サイト-</title> 
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Zen+Kaku+Gothic+New&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+    <header>
+    <h1>yom.</h1>
+    <button id="search-toggle-btn" class="search-btn">検索</button>
+
+    <div id="search-overlay" class="search-overlay">
+    <button id="search-close-btn" class="close-btn">×</button>
+    
+    <div class="search-content">
+        <h2>ジャンルから探す</h2>
+        <div class="genre-container">
+            <button class="genre-item"data-filter="ミステリー">ミステリー</button>
+            <button class="genre-item"data-filter="ライトノベル">ライトノベル</button>
+            <button class="genre-item"data-filter="青春">青春</button>
+            <button class="genre-item"data-filter="スポーツ">スポーツ</button>
+            <button class="genre-item"data-filter="恋愛">恋愛</button>
+            <button class="genre-item"data-filter="ホラー">ホラー</button>
+            <button class="genre-item"data-filter="日常">日常</button>
+            <button class="genre-item"data-filter="SF">SF</button>
+            <button class="genre-item"data-filter="ファンタジー">ファンタジー</button>
+            <button class="genre-item"data-filter="童話">童話</button>
+            <button class="genre-item"data-filter="アニメ/映画 原作">アニメ/漫画 原作</button>
+            <button class="genre-item"data-filter="アクション">アクション</button>
+            <button class="genre-item"data-filter="歴史">歴史</button>
+            <button class="genre-item"data-filter="エッセイ">エッセイ</button>
+            <button class="genre-item"data-filter="ノンフィクション">ノンフィクション</button>
+            <button class="genre-item"data-filter="純文学">純文学</button>
+            <button class="genre-item"data-filter="自己啓発">自己啓発</button>
+            <button class="genre-item"data-filter="その他（料理、ポエム）">その他（料理、ポエム）</button>
+        </div>
+        <div class="filter-group">
+    <h3>今の気分で探す</h3>
+    <div class="keyword-container">
+        <button class="keyword-item">#泣ける</button>
+        <button class="keyword-item">#ワクワクする</button>
+        <button class="keyword-item">#癒やされる</button>
+        <button class="keyword-item">#勇気をもらえる</button>
+        <button class="keyword-item">#切ない</button>
+        <button class="keyword-item">#ゾクッとする</button>
+        <button class="keyword-item">#スカッとする</button>
+        <button class="keyword-item">#考えさせられる</button>
+        <button class="keyword-item">#世界観に浸れる</button>
+    </div>
+</div>
+        <div class="filter-group">
+            <h3>読みやすさ</h3>
+            <div class="filter-options">
+                <button class="filter-item">サクサク</button>
+                <button class="filter-item">ふつう</button>
+                <button class="filter-item">じっくり</button>
+            </div>
+        </div>
+
+        <div class="filter-group">
+            <h3>ページ数</h3>
+            <div class="filter-options">
+                <button class="filter-item">100〜200p</button>
+                <button class="filter-item">200〜300p</button>
+                <button class="filter-item">300〜400p</button>
+                <button class="filter-item">400〜500p</button>
+                <button class="filter-item">500p〜</button>
+            </div>
+          </div>
+        
+
+        <div class="search-box">
+            <input type="text" placeholder="キーワードで自由検索...">
+            <button type="submit">検索</button>
+        </div>
+    </div>
+</div>
+</header>
+
+
+<section>
+<h2>このサイトの使い方</h2>
+<p>
+このサイトは、中高生向けの本の紹介サイトです。<br>
+ジャンルや条件を検索することで、それにあった誰かのお気に入りの本の紹介されます。<br>
+このサイトは中学生が、学校の未来科の授業で作ったものであるため、クオリティが低かったり、使いにくいところがあると思いますが,ご承知ください。
+　</p>
+</section>
+<h2 id="result-title" style="text-align: center; display: none; margin: 30px auto; width: 100%;"></h2>
+
+<main id="card-container" class="card-grid"></main>
+
+<div class="view-all-container">
+    <button id="view-all-btn" class="view-all-btn">全てのカードを見る</button>
+</div>
+<script>
+    // 1. 本のデータ（テンプレートを使って増やしてね！）
+    const allBooks = [
+      { "id": 1, "title": "図書館の魔女", "genre": "ファンタジー", "readability": "サクサク", "pages": "300〜400p", "image_url": "image/図書館の魔女.png", "description": "声がないマツリカとマツリカに仕えることになったキリヒトが政治的な方向に戦うお話です。　【感想】難しい言葉がたくさん入れられていて、かっこいい本を読んでいる気分に慣れます。", "spoiler_text": "" },
+　　　{ "id": 2, "title": "赤ずきんちゃん", "genre": "ミステリー", "readability": "じっくり","pages": "200〜300p","image_url": "image/website001.jpeg", "spoiler_text": "ここに2冊目のネタバレ感想が入ります。" },
+        { "id": 3, "title": "シンデレラ", "genre": "青春", "readability": "じっくり","pages": "300〜400p","image_url": "image/website001.jpeg", "spoiler_text": "ここに3冊目のネタバレ感想が入ります。" },
+        { "id": 4, "title": "美女と野獣", "genre": "ファンタジー", "readability": "じっくり", "pages": "100〜200p","image_url": "image/website001.jpeg", "spoiler_text": "ここに4冊目のネタバレ感想が入ります。" }
+    ];
+
+    const container = document.getElementById('card-container');
+    const viewAllBtn = document.getElementById('view-all-btn');
+    const resultTitle = document.getElementById('result-title');
+
+    // カードの見た目を作る関数
+    // カードの見た目を作る関数
+    function createCardHTML(book) {
+    // ネタバレがない場合の代わりの文章を決める
+    const spoilerMessage = book.spoiler_text && book.spoiler_text.trim() !== "" 
+                           ? book.spoiler_text 
+                           : "この本にはまだネタバレ感想が投稿されていません。";
+
+    return `
+        <div class="book-card">
+            <img src="${book.image_url}" alt="${book.title}" class="book-img">
+            <h3>${book.title}</h3>
+            <p class="genre-tag">ジャンル: ${book.genre}</p>
+            <p class="book-description">${book.description}</p>
+            
+            <div class="spoiler-section">
+                <button class="spoiler-btn">⚠️ ネタバレ感想も読む？</button>
+                <div class="spoiler-content">${spoilerMessage}</div>
+            </div>
+        </div>`;
+}
+
+    // 共通の表示処理（検索結果ページっぽく見せる）
+    function showResults(titleText, filteredData) {
+        document.querySelector('header').style.display = 'none';
+        document.querySelector('section').style.display = 'none';
+        resultTitle.style.display = 'block';
+        resultTitle.innerHTML = `${titleText} <button onclick="location.reload()">ホームに戻る</button>`;
+        
+        container.innerHTML = '';
+        if (filteredData.length === 0) {
+            container.innerHTML = '<p style="text-align:center; width:100%; margin-top:50px;">その条件に合う本はまだありません。</p>';
+        } else {
+            filteredData.forEach(book => container.insertAdjacentHTML('beforeend', createCardHTML(book)));
+        }
+        document.getElementById('search-overlay').classList.remove('active');
+        viewAllBtn.style.display = 'none';
+        window.scrollTo(0, 0);
+    }
+
+    // 最初の表示
+    function displayBooks(count) {
+        container.innerHTML = '';
+        const booksToShow = count === 'all' ? allBooks : allBooks.slice(0, count);
+        booksToShow.forEach(book => container.insertAdjacentHTML('beforeend', createCardHTML(book)));
+    }
+    displayBooks(3);
+
+    // 全表示ボタン
+    viewAllBtn.onclick = () => { displayBooks('all'); viewAllBtn.style.display = 'none'; };
+
+    // 検索オーバーレイ開閉
+    document.getElementById('search-toggle-btn').onclick = () => document.getElementById('search-overlay').classList.add('active');
+    document.getElementById('search-close-btn').onclick = () => document.getElementById('search-overlay').classList.remove('active');
+
+    // 【万能検索】ジャンル、読みやすさ、ページ数
+    document.querySelectorAll('.genre-item, .filter-item').forEach(btn => {
+        btn.onclick = () => {
+            const val = btn.getAttribute('data-filter') || btn.innerText;
+            const filtered = allBooks.filter(b => b.genre === val || b.readability === val || b.pages === val);
+            showResults(`「${val}」の検索結果`, filtered);
+        };
+    });
+    // キーワードボタンのクリックイベント
+document.querySelectorAll('.keyword-item').forEach(btn => {
+    btn.onclick = () => {
+        const selectedTag = btn.innerText; // 「#泣ける」などの文字を取得
+        const filtered = allBooks.filter(b => 
+            // tagsの中身に含まれているか、または感想(description)に含まれているかチェック
+            (b.tags && b.tags.includes(selectedTag)) || 
+            (b.description && b.description.includes(selectedTag.replace('#', '')))
+        );
+        showResults(`「${selectedTag}」な気分のときにおすすめの本`, filtered);
+    };
+});
+
+    // 【自由検索】
+    const searchInput = document.querySelector('.search-box input');
+    const searchSubmitBtn = document.querySelector('.search-box button');
+    searchSubmitBtn.onclick = (e) => {
+        e.preventDefault();
+        const keyword = searchInput.value.trim().toLowerCase();
+        if (!keyword) return alert("キーワードを入力してください！");
+        
+        const filtered = allBooks.filter(b => 
+            b.title.toLowerCase().includes(keyword) || 
+            b.genre.toLowerCase().includes(keyword) || 
+            // ↓ここを追加！あらすじと感想からも検索するようにする
+            (b.description && b.description.toLowerCase().includes(keyword)) ||
+            (b.spoiler_text && b.spoiler_text.toLowerCase().includes(keyword))
+        );
+        showResults(`「${keyword}」の検索結果`, filtered);
+    };
+
+    // ネタバレ・拡大表示・モーダル閉じる
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('spoiler-btn')) {
+            const content = e.target.nextElementSibling;
+            content.classList.toggle('show');
+            e.target.innerText = content.classList.contains('show') ? 'ネタバレを隠す' : '⚠️ ネタバレ感想も読む？';
+        }
+        if (e.target.classList.contains('book-img')) {
+            const modal = document.getElementById('image-modal');
+            const modalImg = document.getElementById('modal-img');
+            modal.style.display = 'flex';
+            modalImg.src = e.target.src;
+        }
+        if (e.target.id === 'image-modal' || e.target.classList.contains('modal-close')) {
+            document.getElementById('image-modal').style.display = 'none';
+        }
+    });
+</script> 
+
+
+<div id="image-modal" class="image-modal">
+    <span class="modal-close">&times;</span>
+    <img id="modal-img" src="" alt="拡大画像">
+</div>
+<a href="https://forms.gle/FEcxdm6ahHhj1ZA38" target="_blank" class="floating-post-btn">
+    <span>✍️</span> 本を紹介する
+</a>
+</body>
+</html>
